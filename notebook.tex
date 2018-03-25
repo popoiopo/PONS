@@ -1,0 +1,931 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Performance of Networked Systems 2}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Dimensioning of cellular networks with video-conferencing
+services}\label{dimensioning-of-cellular-networks-with-video-conferencing-services}
+
+A mobile operator of a cellular GSM network wants to determine how many
+base stations are needed to satisfy its customers' Quality of Service
+(QoS) demands. To this end, the operator wants to determine the maximum
+size of a cell for which the call-blocking probability is still below
+some given threshold. Voice telephone calls are generated with rate 10
+calls per minute per square kilometer (i.e., km2 ), and the call
+duration has an exponential distribution with mean 1.5 minutes. Assume
+that each voice call requires a single channel to the nearest base
+station, and that each cell can support only 6 channels in parallel.
+
+To make a proper decision on the number of base stations to be placed to
+offer good quality to its customers, the operator wants to understand
+the impact of the cell size (in km2 ) on the call-blocking probability.
+
+    \subsection{Formulate a simple model description for the
+problem.}\label{formulate-a-simple-model-description-for-the-problem.}
+
+    When describing a model we can use Kendall's shorthand notation to
+characterize queueing models. This notation consists of three different
+aspects, and one extra:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Interarrival time distribution
+\item
+  Service time distribution
+\item
+  Number of servers
+\item
+  Possible queueing capacity (which is 0 because there is blocking
+  instead of queueing)
+\end{enumerate}
+
+For the first two aspects we can use three letters:
+
+\begin{itemize}
+\tightlist
+\item
+  G: General distribution
+\item
+  M: Exponential distribution (also called memoyless or Makov)
+\item
+  D: Deterministic
+\end{itemize}
+
+Acording to this discription of Kendall's shorthand notation we can
+describe the model in this assignment to be of the M/M/6/0 variety,
+because both the interarrival times and the service time have a
+memoryless property.
+
+    \subsection{Give a formula for the call blocking probability in terms of
+the model
+parameters.}\label{give-a-formula-for-the-call-blocking-probability-in-terms-of-the-model-parameters.}
+
+    \subsubsection{The "Erlang-B formula"}\label{the-erlang-b-formula}
+
+The Erlang-B formula is used for calculating the blocking probability
+that describes the probability of losing calls for a group of identical
+parallel resources (also known as M/M/c/c queue). The formula is given
+below:
+
+\[ \frac{\frac{(\lambda\beta)^N}{N!}}{1 + \frac{(\lambda\beta)^1}{1!} + \frac{(\lambda\beta)^2}{2!} + ... + \frac{(\lambda\beta)^N}{N!}} \]
+
+The formula does make a few assumptions:
+
+\begin{itemize}
+\tightlist
+\item
+  It assumes a Poisson process for the arival instances, so that they
+  are independent.
+\item
+  The holding (waiting) times are exponentially distributed.
+\item
+  The formula assumes an infinite population of sources (e.g.
+  phonecalls).
+\item
+  The arrival rate (lambda) is constant.
+\item
+  The arrival rate is independent of the number of active sources.
+\item
+  Number of resources are assumed to be infinite.
+\item
+  No denied request will be kept (buffer-less loss system). So there are
+  no queues.
+\end{itemize}
+
+\subsubsection{Parameters}\label{parameters}
+
+\paragraph{Lamda (λ) is the rate per minute per square
+kilometer}\label{lamda-ux3bb-is-the-rate-per-minute-per-square-kilometer}
+
+lamda = 10
+
+\paragraph{Beta (β) is the exponential distribution with mean 1.5
+minutes}\label{beta-ux3b2-is-the-exponential-distribution-with-mean-1.5-minutes}
+
+beta = 1.5
+
+\paragraph{Amount of channels in parallel
+(N)}\label{amount-of-channels-in-parallel-n}
+
+N = 6
+
+    \subsection{Write your own `Erlang-B calculator'' and calculate the
+blocking probability for cell sizes 0.5 km2, 1km2 and 2
+km2.}\label{write-your-own-erlang-b-calculator-and-calculate-the-blocking-probability-for-cell-sizes-0.5-km2-1km2-and-2-km2.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{k+kn}{from} \PY{n+nn}{ipywidgets} \PY{k}{import} \PY{n}{interact}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{math}
+         
+         \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{io} \PY{k}{import} \PY{n}{push\PYZus{}notebook}\PY{p}{,} \PY{n}{show}\PY{p}{,} \PY{n}{output\PYZus{}notebook}
+         \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{plotting} \PY{k}{import} \PY{n}{figure}
+         \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{ColumnDataSource}\PY{p}{,} \PY{n}{HoverTool}\PY{p}{,} \PY{n}{LassoSelectTool}\PY{p}{,} \PY{n}{WheelZoomTool}
+         \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{palettes} \PY{k}{import} \PY{n}{Spectral3}
+         
+         \PY{n}{output\PYZus{}notebook}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{} Calculate upper part of Erlang\PYZhy{}B formula}
+         \PY{k}{def} \PY{n+nf}{bp\PYZus{}calc}\PY{p}{(}\PY{n}{lamda}\PY{p}{,} \PY{n}{beta}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+             \PY{n}{bp} \PY{o}{=} \PY{p}{(}\PY{n}{lamda} \PY{o}{*} \PY{n}{beta}\PY{p}{)} \PY{o}{*}\PY{o}{*} \PY{n}{N} \PY{o}{/} \PY{n}{math}\PY{o}{.}\PY{n}{factorial}\PY{p}{(}\PY{n}{N}\PY{p}{)}
+             \PY{k}{return} \PY{n}{bp}
+         
+         \PY{c+c1}{\PYZsh{} Calculate Markov chain}
+         \PY{k}{def} \PY{n+nf}{erlang\PYZus{}B}\PY{p}{(}\PY{n}{lamda}\PY{p}{,} \PY{n}{beta}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+             \PY{n}{bp1} \PY{o}{=} \PY{n}{bp\PYZus{}calc}\PY{p}{(}\PY{n}{lamda}\PY{p}{,} \PY{n}{beta}\PY{p}{,} \PY{n}{N}\PY{p}{)}
+             \PY{n}{bp2} \PY{o}{=} \PY{l+m+mi}{1}
+             
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{bp2} \PY{o}{+}\PY{o}{=} \PY{n}{bp\PYZus{}calc}\PY{p}{(}\PY{n}{lamda}\PY{p}{,} \PY{n}{beta}\PY{p}{,} \PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+                 
+             \PY{k}{return} \PY{n}{bp1} \PY{o}{/} \PY{n}{bp2}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{} Initializa data}
+         \PY{n}{data\PYZus{}x} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{0.5 km2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1 km2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2 km2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{data\PYZus{}y} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Initialize variable}
+         \PY{n}{datapoints} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}
+         \PY{n}{lamda} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{n}{beta} \PY{o}{=} \PY{l+m+mf}{1.5}
+         
+         \PY{c+c1}{\PYZsh{} Fill data}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{datapoints}\PY{p}{:}
+             \PY{n}{data\PYZus{}y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{erlang\PYZus{}B}\PY{p}{(}\PY{n}{lamda} \PY{o}{*} \PY{n}{i}\PY{p}{,} \PY{n}{beta}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} Setting data in right format}
+         \PY{n}{source} \PY{o}{=} \PY{n}{ColumnDataSource}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{x\PYZus{}axis}\PY{o}{=}\PY{n}{data\PYZus{}x}\PY{p}{,} 
+                                             \PY{n}{y\PYZus{}axis}\PY{o}{=}\PY{n}{data\PYZus{}y}\PY{p}{,} 
+                                             \PY{n}{color}\PY{o}{=}\PY{n}{Spectral3}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Creating tooltip}
+         \PY{n}{hover} \PY{o}{=} \PY{n}{HoverTool}\PY{p}{(}\PY{n}{tooltips}\PY{o}{=}\PY{p}{[}
+             \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cell Size}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{@x\PYZus{}axis}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+             \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Blocking Probability}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{@y\PYZus{}axis}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+         \PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Create figure}
+         \PY{n}{p} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{n}{x\PYZus{}range}\PY{o}{=}\PY{n}{data\PYZus{}x}\PY{p}{,} \PY{n}{y\PYZus{}range}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{p}{(}\PY{n+nb}{max}\PY{p}{(}\PY{n}{data\PYZus{}y}\PY{p}{)} \PY{o}{+} \PY{p}{(}\PY{n+nb}{max}\PY{p}{(}\PY{n}{data\PYZus{}y}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{,} 
+                    \PY{n}{plot\PYZus{}height}\PY{o}{=}\PY{l+m+mi}{350}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Erlang Blocking Calculator}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                    \PY{n}{tools}\PY{o}{=}\PY{p}{[}\PY{n}{hover}\PY{p}{,}\PY{n}{LassoSelectTool}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{WheelZoomTool}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Create bars}
+         \PY{n}{p}\PY{o}{.}\PY{n}{vbar}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZus{}axis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{top}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}axis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+m+mf}{0.9}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{color}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                \PY{n}{legend}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x\PYZus{}axis}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{source}\PY{o}{=}\PY{n}{source}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Colors and legend}
+         \PY{n}{p}\PY{o}{.}\PY{n}{xgrid}\PY{o}{.}\PY{n}{grid\PYZus{}line\PYZus{}color} \PY{o}{=} \PY{k+kc}{None}
+         \PY{n}{p}\PY{o}{.}\PY{n}{legend}\PY{o}{.}\PY{n}{orientation} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{horizontal}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{p}\PY{o}{.}\PY{n}{legend}\PY{o}{.}\PY{n}{location} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{top\PYZus{}center}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{} Show graph}
+         \PY{n}{show}\PY{p}{(}\PY{n}{p}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    
+    
+    \subsection{The call blocking probability is known to be insensitive
+with respect to the distribution of the call duration. What exactly does
+that
+mean?}\label{the-call-blocking-probability-is-known-to-be-insensitive-with-respect-to-the-distribution-of-the-call-duration.-what-exactly-does-that-mean}
+
+    This means that the formula is also valid for non-exponential call
+holding times.
+
+    \subsection{Is the call blocking probability also insensitive with
+respect to the inter-arrival time distribution of the calls? If so, why,
+if not so, give a
+counter-example.}\label{is-the-call-blocking-probability-also-insensitive-with-respect-to-the-inter-arrival-time-distribution-of-the-calls-if-so-why-if-not-so-give-a-counter-example.}
+
+    The call blocking probability is not insensitive with respect to the
+inter-arrival time distribution of the calls. This is because Erlang
+Blocking Formula requires Poisson arrival times. These Poisson arrival
+times have to satisfy two requirements.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Mutually independent
+\item
+  Exponentially distributed
+\end{enumerate}
+
+So by this definition the inter-arrival time distribution has to be, by
+definition, exponentially distributed.
+
+    \subsubsection{Now suppose the service provider wants to offer a new
+additional service to its customers: video conferencing. Each conference
+call requires 3 parallel channels for each connection. Video
+conferencing calls arrive according to a Poisson process with rate 0.25
+calls per hour per km2, and the conference call duration is
+exponentially distributed with mean 15 minutes. Recall that each cell
+has 6 channels. Call attempts are blocked when there are not enough
+lines available. Assume throughout that the cell size is 1
+km2.}\label{now-suppose-the-service-provider-wants-to-offer-a-new-additional-service-to-its-customers-video-conferencing.-each-conference-call-requires-3-parallel-channels-for-each-connection.-video-conferencing-calls-arrive-according-to-a-poisson-process-with-rate-0.25-calls-per-hour-per-km2-and-the-conference-call-duration-is-exponentially-distributed-with-mean-15-minutes.-recall-that-each-cell-has-6-channels.-call-attempts-are-blocked-when-there-are-not-enough-lines-available.-assume-throughout-that-the-cell-size-is-1-km2.}
+
+    \subsection{Formulate the evolution of the system as a two-dimensional
+continuous-time Markov chain, describing the numbers of calls at both
+call types (i.e., voice calls and video conferencing calls,
+respectively).}\label{formulate-the-evolution-of-the-system-as-a-two-dimensional-continuous-time-markov-chain-describing-the-numbers-of-calls-at-both-call-types-i.e.-voice-calls-and-video-conferencing-calls-respectively.}
+
+    The two dimensional continuous-time Markov chain looks like figure
+(ref). This models follows these parameters:
+
+\begin{itemize}
+\tightlist
+\item
+  Number of types N: 2
+\item
+  Number of channels C: 6
+\item
+  b1, Cost of Type 1 (voice calls): 1
+\item
+  b2, Cost of Type 2 (video conferencing): 3
+\item
+  Lambda1: 10
+\item
+  Lambda2: 0.25/60 = 0.00416
+\item
+  mu1 = 1/d1 = 1/1.5 = 0.666
+\item
+  mu2 = 1/d2 = 1/15 = 0.0666
+\end{itemize}
+
+In figure (ref) the probability that a video conferencing call is added
+to the system is depicted by lambda2 (INSERT PROPER CHAR) and the
+probability of a voice call being added to the system is depicted by
+lambda1 (INSERT). The probability that a call is finished is depicted by
+mu1 of 2 depending on the type, times the amount of calls of the same
+type.
+
+    \subsection{Formulate and solve the balance equations for the Markov
+chain and calculate the equilibrium state probability for each
+state.}\label{formulate-and-solve-the-balance-equations-for-the-markov-chain-and-calculate-the-equilibrium-state-probability-for-each-state.}
+
+    State space = \{(0,0), (0,1), (0,2), (1,1), (2,1), (3,1), (1,0), (2,0),
+(3,0), (4,0), (5,0), (6,0)\} (12 states)
+
+Balance equations:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  For state (0,0): \emph{(lambda1 + lambda2) * pi(0,0) = mu1 * pi(1,0) +
+  mu2 * pi(0,1)}
+\item
+  For state (0,1): \emph{(lambda1 + mu2 + lambda2) * pi(0,1) = mu1 *
+  pi(1,1) + (2 * mu2) * pi(0,2) + lambda2 * pi(0, 0)}
+\item
+  For state (0,2): \emph{(2 * mu2) * pi(0,2) = lambda2 * pi(0,1)}
+\item
+  For state (1,1): \emph{(lambda1 + mu2 + mu1) * pi(1,1) = (2 * mu1) *
+  pi(2,1) + lambda1 * pi(0,1) + lambda2 * pi(1,0)}
+\item
+  For state (2,1): \emph{(lambda1 + mu2 + 2 * mu1) * pi(2,1) = (3 * mu1)
+  * pi(3,1) + lambda1 * pi(1,1) + lambda2 * pi(2,0)}
+\item
+  For state (3,1): \emph{(mu2 + 3 * mu1) * pi(3,1) = lambda1 * pi(2,1) +
+  lambda2 * pi(3.0)}
+\item
+  For state (1,0): \emph{(lambda1 + lambda2 + mu1) * pi(1,0) = lambda1 *
+  p(0,0) + mu2 * p(1,1) + 2* mu1 * p(2,0)}
+\item
+  For state (2,0): \emph{(lambda1 + lambda2 + 2 * mu1) * p(2,0) =
+  lambda1 * pi(1,0) + mu2 * pi(2,1) + 3 * mu1 * p(3,0)}
+\item
+  For state (3,0): \emph{(lambda1 + 3 * mu1 + lambda2) * pi(3,0) =
+  lambda1 * pi(2,0) + (4 * mu1) * pi(4,0) + mu2 * pi(3,1)}
+\item
+  For state (4,0): \emph{(lambda1 + 4 * mu1) * pi(4,0) = lambda1 *
+  pi(3,0) + (5 * mu1) * pi(5,0)}
+\item
+  For state (5,0): \emph{(lambda1 + 5 * mu1) * pi(5,0) = lambda1 *
+  pi(4,0) + (6 * mu1) * pi(6,0)}
+\item
+  For state (6,0): \emph{(6 * mu1) * pi(6,0) = lambda1 * pi(5,0)}
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{k+kn}{import} \PY{n+nn}{numpy}
+         
+         \PY{n}{lambda1} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{n}{lambda2} \PY{o}{=}  \PY{l+m+mf}{0.25}\PY{o}{/}\PY{l+m+mi}{60}
+         \PY{n}{mu1} \PY{o}{=}  \PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mf}{1.5}
+         \PY{n}{mu2} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{15}
+         
+         \PY{c+c1}{\PYZsh{} State space = \PYZob{}(0,0), (0,1), (0,2), (1,1), (2,1), (3,1), (1,0), (2,0), (3,0), (4,0), (5,0), (6,0)\PYZcb{} (12 states) }
+         \PY{c+c1}{\PYZsh{} [0, 0 ,0, 0 , 0 ,0 , 0 , 0 , 0 , 0, 0, 0 ]}
+         \PY{n}{e00} \PY{o}{=} \PY{p}{[}\PY{n}{lambda1} \PY{o}{+} \PY{n}{lambda2}\PY{p}{,} \PY{n}{mu2} \PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{mu1} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0} \PY{p}{]}
+         \PY{n}{e01} \PY{o}{=} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{n}{lambda2}\PY{p}{,} \PY{n}{lambda1} \PY{o}{+} \PY{n}{mu2} \PY{o}{+} \PY{n}{lambda2} \PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{2} \PY{o}{*} \PY{n}{mu2}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{mu1} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0} \PY{p}{]}
+         \PY{n}{e02} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{lambda2} \PY{p}{,}\PY{l+m+mi}{2} \PY{o}{*} \PY{n}{mu2}\PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0} \PY{p}{]}
+         \PY{n}{e10} \PY{o}{=} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{n}{lambda1}\PY{p}{,} \PY{n}{lambda1} \PY{o}{+} \PY{n}{lambda2} \PY{o}{+} \PY{n}{mu1} \PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{mu2} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*} \PY{n}{mu1} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0} \PY{p}{]}
+         \PY{n}{e11} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{lambda1} \PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{lambda1} \PY{o}{+} \PY{n}{mu2} \PY{o}{+} \PY{n}{mu1} \PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{2} \PY{o}{*} \PY{n}{mu1} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{lambda2} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0} \PY{p}{]}
+         \PY{n}{e20} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{mu2} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{lambda1} \PY{p}{,} \PY{n}{lambda1} \PY{o}{+} \PY{n}{lambda2} \PY{o}{+} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{mu1} \PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{3} \PY{o}{*} \PY{n}{mu1} \PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0} \PY{p}{]}
+         \PY{n}{e21} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{lambda1} \PY{p}{,} \PY{n}{lambda1} \PY{o}{+} \PY{n}{mu2} \PY{o}{+} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{mu1} \PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{3} \PY{o}{*} \PY{n}{mu1} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{lambda2} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0} \PY{p}{]}
+         \PY{n}{e30} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{mu2} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{lambda1} \PY{p}{,} \PY{n}{lambda1} \PY{o}{+} \PY{l+m+mi}{3} \PY{o}{*} \PY{n}{mu1} \PY{o}{+} \PY{n}{lambda2} \PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{4} \PY{o}{*} \PY{n}{mu1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0} \PY{p}{]}
+         \PY{n}{e31}\PY{o}{=}  \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{lambda1} \PY{p}{,} \PY{n}{mu2} \PY{o}{+} \PY{l+m+mi}{3} \PY{o}{*} \PY{n}{mu1} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{lambda2} \PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0} \PY{p}{]}
+         \PY{n}{e40} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,}\PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{lambda1} \PY{p}{,} \PY{n}{lambda1} \PY{o}{+} \PY{l+m+mi}{4} \PY{o}{*} \PY{n}{mu1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{5} \PY{o}{*} \PY{n}{mu1}\PY{p}{,} \PY{l+m+mi}{0} \PY{p}{]}
+         \PY{c+c1}{\PYZsh{}e50 = [0, 0 ,0, 0 , 0 ,0 , 0 , 0 , 0 , \PYZhy{}lambda1 , lambda1 + 5 * mu1, \PYZhy{}6 * mu1]}
+         
+         \PY{c+c1}{\PYZsh{} Sum of all probabilities}
+         \PY{n}{e\PYZus{}normalization} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1} \PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1} \PY{p}{,} \PY{l+m+mi}{1} \PY{p}{,}\PY{l+m+mi}{1} \PY{p}{,} \PY{l+m+mi}{1} \PY{p}{,} \PY{l+m+mi}{1} \PY{p}{,} \PY{l+m+mi}{1} \PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1} \PY{p}{]}
+         \PY{n}{e60} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,}\PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{o}{\PYZhy{}} \PY{n}{lambda1}\PY{p}{,} \PY{l+m+mi}{6} \PY{o}{*} \PY{n}{mu1} \PY{p}{]}
+         
+         \PY{n}{matrix\PYZus{}param} \PY{o}{=} \PY{n}{numpy}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{p}{[}\PY{n}{e00}\PY{p}{,} \PY{n}{e01}\PY{p}{,} \PY{n}{e02}\PY{p}{,} \PY{n}{e10}\PY{p}{,} \PY{n}{e11}\PY{p}{,} \PY{n}{e20}\PY{p}{,} \PY{n}{e21}\PY{p}{,} \PY{n}{e30}\PY{p}{,} \PY{n}{e31}\PY{p}{,} \PY{n}{e40}\PY{p}{,} \PY{n}{e60}\PY{p}{,} \PY{n}{e\PYZus{}normalization}\PY{p}{]}\PY{p}{)}
+         \PY{n}{matrix\PYZus{}param\PYZus{}inverse} \PY{o}{=} \PY{n}{numpy}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{matrix\PYZus{}param}\PY{p}{)}
+         
+         
+         \PY{n}{matrix\PYZus{}multiple} \PY{o}{=} \PY{n}{numpy}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{matrix\PYZus{}probability} \PY{o}{=} \PY{n}{matrix\PYZus{}param\PYZus{}inverse} \PY{o}{*} \PY{n}{matrix\PYZus{}multiple}
+         \PY{c+c1}{\PYZsh{} v00 = (lambda1 + lambda2) * pi(0,0) = mu1 * pi(1,0) +  mu2 * pi(0,1)}
+         \PY{c+c1}{\PYZsh{} v01 = (lambda1 + mu2 + lambda2) * pi(0,1) = mu1 * pi(1,1) + (2 * mu2) * pi(0,2) + lambda2 * pi(0, 0)}
+         \PY{c+c1}{\PYZsh{} v02 = (2 * mu2) * pi(0,2) = lambda2 * pi(0,1)}
+         \PY{c+c1}{\PYZsh{} v10 = (lambda1 + lambda2 + mu1) * pi(1,0) = lambda1 * p(0,0) + mu2 * p(1,1) + 2* mu1 * p(2,0) }
+         \PY{c+c1}{\PYZsh{} v11 = (lambda1 + mu2 + mu1) * pi(1,1) = (2 * mu1) * pi(2,1) + lambda1 * pi(0,1) + lambda2 * pi(1,0)}
+         \PY{c+c1}{\PYZsh{} v20 = (lambda1 + lambda2 + 2 * mu1) * p(2,0) = lambda1 * pi(1,0) + mu2 * pi(2,1) + 3 * mu1 * p(3,0)}
+         \PY{c+c1}{\PYZsh{} v21 = (lambda1 + mu2 + 2 * mu1) * pi(2,1) = (3 * mu1) * pi(3,1) + lambda1 * pi(1,1) + lambda2 * pi(2,0)}
+         \PY{c+c1}{\PYZsh{} v30 = (lambda1 + 3 * mu1 + lambda2) * pi(3,0) = lambda1 * pi(2,0) + (4 * mu1) * pi(4,0) +  mu2 * pi(3,1)}
+         \PY{c+c1}{\PYZsh{} v31 = (mu2 + 3 * mu1) * pi(3,1) = lambda1 * pi(2,1) + lambda2 * pi(3.0)}
+         \PY{c+c1}{\PYZsh{} v40 = (lambda1 + 4 * mu1) * pi(4,0) = lambda1 * pi(3,0) + (5 * mu1) * pi(5,0)}
+         \PY{c+c1}{\PYZsh{} v50 = (lambda1 + 5 * mu1) * pi(5,0) = lambda1 * pi(4,0) + (6 * mu1) * pi(6,0)}
+         \PY{c+c1}{\PYZsh{} v60 = (6 * mu1) * pi(6,0) = lambda1 * pi(5,0)}
+         
+         \PY{n}{prob\PYZus{}list} \PY{o}{=} \PY{n}{numpy}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{matrix\PYZus{}probability}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{p}{)}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Equilibrium state probability for each state: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{       }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{(0,0), (0,1), (0,2), (1,1), (2,1), (3,1), (1,0), (2,0), (3,0), (4,0), (5,0), (6,0)\PYZcb{} }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{matrix\PYZus{}probability}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} 1 only accept }
+                         \PY{c+c1}{\PYZsh{}\PYZob{}(0,0), (0,1), (0,2), (1,1), (2,1), (3,1), (1,0), (2,0), (3,0), (4,0), (5,0), (6,0)\PYZcb{} }
+                         \PY{c+c1}{\PYZsh{}\PYZob{}(0,0), (0,1), (1,0), (2,0), (3,0)\PYZcb{} }
+         \PY{n}{b1} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{prob\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{n}{prob\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{prob\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]} \PY{o}{+} \PY{n}{prob\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]} \PY{o}{+} \PY{n}{prob\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]} \PY{o}{+} \PY{n}{prob\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{7}\PY{p}{]} \PY{o}{+} \PY{n}{prob\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{8}\PY{p}{]} \PY{o}{+} \PY{n}{prob\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{9}\PY{p}{]} \PY{o}{+} \PY{n}{prob\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{)}
+         \PY{n}{b2} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{prob\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{n}{prob\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{prob\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]} \PY{o}{+} \PY{n}{prob\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{7}\PY{p}{]} \PY{o}{+} \PY{n}{prob\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{b1}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{b2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Equilibrium state probability for each state: 
+        \{(0,0), (0,1), (0,2), (1,1), (2,1), (3,1), (1,0), (2,0), (3,0), (4,0), (5,0), (6,0)\} 
+ 
+[[-1.65059210e-04]
+ [ 1.45875334e-06]
+ [ 4.55860421e-08]
+ [ 2.30587955e-05]
+ [ 1.82422573e-04]
+ [ 9.21913715e-04]
+ [-2.47677389e-03]
+ [ 1.24846572e-03]
+ [ 1.94550288e-02]
+ [ 8.28732337e-02]
+ [ 2.56553202e-01]
+ [ 6.41383004e-01]] 
+
+0.6423049632545225
+0.9819368798599208
+
+    \end{Verbatim}
+
+    
+
+    \subsection{Use the product-form theorem discussed during the lecture of
+March 5 to give an explicit formula for the equilibrium state
+probabilities of the Markov
+chain.}\label{use-the-product-form-theorem-discussed-during-the-lecture-of-march-5-to-give-an-explicit-formula-for-the-equilibrium-state-probabilities-of-the-markov-chain.}
+
+    \$K = 2 \$ call classes
+
+load \$ ro\_k = lambda\_j * d\_j \$ (k = 1,...,K)
+
+\(n_k\) := number of class-k calls in progress (k = 1,...,K)
+
+\(\pi_n = 1/G \prod_{j=1}^{K} \frac{\rho_{j}^nj}{n_{j}}\)
+
+Where:
+
+\$G := \sum\emph{\{N\in S\}\prod}\{j=1\}\^{}\{K\}
+\frac{\rho_{j}^nj}{n_{j}} \$
+
+With:
+
+\$ \rho\_\{j\} := \lambda\_j\delta\_j\$
+
+So G is the sum of all possible states for each class. When we divide
+this to 1, we have a normalizing constant. The we can multiply this by
+the product of each state in a certain class, and we have the blocking
+probability.
+
+    
+
+    \subsection{Calculate the equilibrium state probabilities for the model
+(simply by filling out the proper parameter value in the formula
+obtained in question
+8).}\label{calculate-the-equilibrium-state-probabilities-for-the-model-simply-by-filling-out-the-proper-parameter-value-in-the-formula-obtained-in-question-8.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{k+kn}{import} \PY{n+nn}{math}
+         \PY{k+kn}{import} \PY{n+nn}{numpy}
+         \PY{n}{K} \PY{o}{=} \PY{l+m+mi}{2}
+         \PY{n}{states} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{]}
+         \PY{n}{lamda} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mf}{0.25}\PY{o}{/}\PY{l+m+mi}{60}\PY{p}{]}
+         \PY{n}{d} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mf}{1.5}\PY{p}{,} \PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{15}\PY{p}{]}
+         
+         \PY{n}{G\PYZus{}calc} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{pf} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{]}
+         \PY{n}{equilibrium} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{state} \PY{o+ow}{in} \PY{n}{states}\PY{p}{:}
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{K}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{ro} \PY{o}{=} \PY{n}{lamda}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{*} \PY{n}{d}\PY{p}{[}\PY{n}{j}\PY{p}{]}
+                 \PY{n}{G\PYZus{}calc}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{ro} \PY{o}{*}\PY{o}{*} \PY{n}{state}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{/} \PY{n}{math}\PY{o}{.}\PY{n}{factorial}\PY{p}{(}\PY{n}{state}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{G} \PY{o}{=} \PY{n}{numpy}\PY{o}{.}\PY{n}{product}\PY{p}{(}\PY{n}{G\PYZus{}calc}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{state} \PY{o+ow}{in} \PY{n}{states}\PY{p}{:}
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{K}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{ro} \PY{o}{=} \PY{n}{lamda}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{*} \PY{n}{d}\PY{p}{[}\PY{n}{j}\PY{p}{]}
+                 \PY{n}{pf}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{ro} \PY{o}{*}\PY{o}{*} \PY{n}{state}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{/} \PY{n}{math}\PY{o}{.}\PY{n}{factorial}\PY{p}{(}\PY{n}{state}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{pf}\PY{p}{:}
+             \PY{n}{equilibrium}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{G}\PY{p}{)} \PY{o}{*} \PY{n}{numpy}\PY{o}{.}\PY{n}{product}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{equilibrium}\PY{p}{,} \PY{n}{numpy}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{equilibrium}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[4.3535646720000016e+21, 1.6964906514146546e-14] 4.3535646720000016e+21
+
+    \end{Verbatim}
+
+    \subsection{Use this result to calculate the blocking probabilities for
+both call
+classes.}\label{use-this-result-to-calculate-the-blocking-probabilities-for-both-call-classes.}
+
+    \subsection{Formulate the Kaufman-Roberts recursion for the
+model.}\label{formulate-the-kaufman-roberts-recursion-for-the-model.}
+
+     
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{k}{def} \PY{n+nf}{getBlockProbabilityForKClass}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+           \PY{n}{b} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)} \PY{c+c1}{\PYZsh{} Tuple of required channels for type of connection}
+           \PY{n}{d} \PY{o}{=} \PY{p}{(}\PY{l+m+mf}{1.5}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{)} \PY{c+c1}{\PYZsh{} Tuple of call duration}
+           
+           \PY{n}{lamda} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mf}{0.25}\PY{o}{/}\PY{l+m+mi}{60}\PY{p}{)} \PY{c+c1}{\PYZsh{} arrival rate}
+           \PY{n}{p} \PY{o}{=} \PY{p}{(}\PY{n}{lamda}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{n}{d}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{lamda}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{*} \PY{n}{d}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} load}
+         
+           \PY{n}{C} \PY{o}{=} \PY{l+m+mi}{6} \PY{c+c1}{\PYZsh{} Number of channel}
+           \PY{n}{K} \PY{o}{=} \PY{l+m+mi}{2} \PY{c+c1}{\PYZsh{} Number of class}
+         
+           \PY{n}{g} \PY{o}{=} \PY{p}{[}\PY{k+kc}{None}\PY{p}{]} \PY{o}{*} \PY{p}{(}\PY{n}{C}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+           \PY{n}{g}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+         
+           \PY{c+c1}{\PYZsh{} Calculate g array}
+           \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{C}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{n}{gc\PYZus{}temp} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{K}\PY{p}{)}\PY{p}{:}
+               \PY{n}{g\PYZus{}cb\PYZus{}index} \PY{o}{=} \PY{n}{c}\PY{o}{\PYZhy{}}\PY{n}{b}\PY{p}{[}\PY{n}{j}\PY{p}{]}
+               \PY{k}{if} \PY{p}{(}\PY{n}{g\PYZus{}cb\PYZus{}index} \PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{gc\PYZus{}temp} \PY{o}{+}\PY{o}{=} \PY{n}{b}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{*} \PY{n}{p}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{*} \PY{n}{g}\PY{p}{[}\PY{n}{g\PYZus{}cb\PYZus{}index}\PY{p}{]}
+               
+             \PY{n}{gc\PYZus{}temp} \PY{o}{=} \PY{n}{gc\PYZus{}temp} \PY{o}{*} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{c}
+             \PY{n}{g}\PY{p}{[}\PY{n}{c}\PY{p}{]} \PY{o}{=} \PY{n}{gc\PYZus{}temp}
+             
+             
+           \PY{c+c1}{\PYZsh{} Calculate G\PYZus{}Constant}
+           \PY{n}{G} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{g}\PY{p}{)}
+          
+         
+           \PY{c+c1}{\PYZsh{} Equilibrium distribution for the number of occupied resources}
+           \PY{n}{q} \PY{o}{=} \PY{p}{[}\PY{k+kc}{None}\PY{p}{]} \PY{o}{*} \PY{n+nb}{len}\PY{p}{(}\PY{n}{g}\PY{p}{)}
+           \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{C}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{n}{q}\PY{p}{[}\PY{n}{c}\PY{p}{]} \PY{o}{=} \PY{n}{g}\PY{p}{[}\PY{n}{c}\PY{p}{]}\PY{o}{/}\PY{n}{G}
+         
+           \PY{c+c1}{\PYZsh{} Blocking probability result}
+           \PY{n}{B} \PY{o}{=} \PY{p}{[}\PY{k+kc}{None}\PY{p}{]} \PY{o}{*} \PY{n}{K}
+           \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{K}\PY{p}{)}\PY{p}{:}
+             \PY{n}{B\PYZus{}temp} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{C}\PY{o}{\PYZhy{}}\PY{n}{b}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{C}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+               \PY{n}{B\PYZus{}temp} \PY{o}{+}\PY{o}{=} \PY{n}{q}\PY{p}{[}\PY{n}{c}\PY{p}{]}
+             \PY{n}{B}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n+nb}{format}\PY{p}{(}\PY{n}{B\PYZus{}temp}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.3f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+           \PY{k}{return} \PY{n}{B}
+         
+         \PY{n}{blockProbabilityArr} \PY{o}{=} \PY{n}{getBlockProbabilityForKClass}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{====== Block probability for class=======}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{k}{for} \PY{n}{index} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{blockProbabilityArr}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+           \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Class }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{blockProbabilityArr}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+====== Block probability for class=======
+Class  0 :  0.634
+Class  1 :  0.972
+
+    \end{Verbatim}
+
+    \section{Three cell analysis}\label{three-cell-analysis}
+
+    Consider a cellular voice network with three neighboring cells, as
+depicted below. The mean number of call attempts per minute for cells 1,
+2 and 3 are 5, 10 and 15, respectively. We assume that the mean call
+duration is 2 minutes. There are a total of 32 channels, and there is a
+fixed number of channels per cell. However, to avoid interference
+neighboring cells cannot use the same channel.
+
+    \subsection{Determine the distribution of the 32 channels over the three
+cells that minimizes the call blocking probability of an arbitrary call
+(regardless of the cell in which takes place. To this end, extend your
+Erlang-B calculator to the three-cell case, and sure it calculates the
+call blocking probabilities per cell and the overall call blocking
+probability.}\label{determine-the-distribution-of-the-32-channels-over-the-three-cells-that-minimizes-the-call-blocking-probability-of-an-arbitrary-call-regardless-of-the-cell-in-which-takes-place.-to-this-end-extend-your-erlang-b-calculator-to-the-three-cell-case-and-sure-it-calculates-the-call-blocking-probabilities-per-cell-and-the-overall-call-blocking-probability.}
+
+    \subsection{Suppose we want to have an overall call blocking probability
+less than 5\%. Do we need any additional channels? If so, how many
+additional channels are needed, and what would the optimal allocation of
+these channels then
+be?}\label{suppose-we-want-to-have-an-overall-call-blocking-probability-less-than-5.-do-we-need-any-additional-channels-if-so-how-many-additional-channels-are-needed-and-what-would-the-optimal-allocation-of-these-channels-then-be}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{k+kn}{import} \PY{n+nn}{math}
+         
+         \PY{k}{def} \PY{n+nf}{try\PYZus{}backtrack}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{triple}\PY{p}{,} \PY{n}{result\PYZus{}subsets}\PY{p}{,} \PY{n}{space}\PY{p}{,} \PY{n}{total}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{index} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{space}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{triple}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{space}\PY{p}{[}\PY{n}{index}\PY{p}{]}
+                 
+                 \PY{k}{if} \PY{p}{(}\PY{n}{i} \PY{o}{==} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{triple}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)} \PY{o+ow}{and} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{triple}\PY{p}{)} \PY{o}{==} \PY{n}{total}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{copy\PYZus{}tripe} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{triple}\PY{p}{)}
+                     \PY{k}{if} \PY{n}{copy\PYZus{}tripe} \PY{o}{!=} \PY{p}{[}\PY{p}{]}\PY{p}{:}
+                         \PY{n}{result\PYZus{}subsets}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{copy\PYZus{}tripe}\PY{p}{)}
+         
+                 \PY{k}{if} \PY{p}{(}\PY{n}{i} \PY{o}{!=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{triple}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}    
+                     \PY{n}{try\PYZus{}backtrack}\PY{p}{(}\PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{triple}\PY{p}{,} \PY{n}{result\PYZus{}subsets}\PY{p}{,} \PY{n}{space}\PY{p}{,} \PY{n}{total}\PY{p}{)}
+         
+         
+         \PY{k}{def} \PY{n+nf}{generateAllSubsetSumToN}\PY{p}{(}\PY{n}{space}\PY{p}{,} \PY{n}{n} \PY{p}{,} \PY{n}{total}\PY{p}{)}\PY{p}{:}
+             \PY{n}{subsets} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{p}{]}\PY{p}{]}
+             \PY{n}{backtrack\PYZus{}triple} \PY{o}{=} \PY{p}{[}\PY{k+kc}{None}\PY{p}{]} \PY{o}{*} \PY{n}{n}
+             \PY{n}{try\PYZus{}backtrack}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{backtrack\PYZus{}triple}\PY{p}{,} \PY{n}{subsets}\PY{p}{,} \PY{n}{space}\PY{p}{,} \PY{n}{total}\PY{p}{)}
+             \PY{k}{return} \PY{n}{subsets}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Erlang model}
+         \PY{n}{lamda1} \PY{o}{=} \PY{l+m+mi}{5}
+         \PY{n}{lamda2} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{n}{lamda3} \PY{o}{=} \PY{l+m+mi}{15}
+         \PY{n}{lamda\PYZus{}sum} \PY{o}{=} \PY{n}{lamda1} \PY{o}{+} \PY{n}{lamda2} \PY{o}{+} \PY{n}{lamda3}
+         
+         \PY{n}{beta} \PY{o}{=} \PY{l+m+mi}{2}
+         \PY{n}{lamda1\PYZus{}average} \PY{o}{=} \PY{p}{(}\PY{n}{lamda1}\PY{p}{)}\PY{o}{/}\PY{n}{lamda\PYZus{}sum}
+         \PY{n}{lamda2\PYZus{}average} \PY{o}{=} \PY{p}{(}\PY{n}{lamda2}\PY{p}{)}\PY{o}{/}\PY{n}{lamda\PYZus{}sum}
+         \PY{n}{lamda3\PYZus{}average} \PY{o}{=} \PY{p}{(}\PY{n}{lamda3}\PY{p}{)}\PY{o}{/}\PY{n}{lamda\PYZus{}sum}
+         
+         \PY{c+c1}{\PYZsh{} Calculate upper part of Erlang\PYZhy{}B formula}
+         \PY{k}{def} \PY{n+nf}{bp\PYZus{}calc}\PY{p}{(}\PY{n}{lamda}\PY{p}{,} \PY{n}{beta}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+             \PY{n}{bp} \PY{o}{=} \PY{p}{(}\PY{n}{lamda} \PY{o}{*} \PY{n}{beta}\PY{p}{)} \PY{o}{*}\PY{o}{*} \PY{n}{N} \PY{o}{/} \PY{n}{math}\PY{o}{.}\PY{n}{factorial}\PY{p}{(}\PY{n}{N}\PY{p}{)}
+             \PY{k}{return} \PY{n}{bp}
+         
+         \PY{c+c1}{\PYZsh{} Calculate Markov chain}
+         \PY{k}{def} \PY{n+nf}{erlang\PYZus{}B}\PY{p}{(}\PY{n}{lamda}\PY{p}{,} \PY{n}{beta}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+             \PY{n}{bp1} \PY{o}{=} \PY{n}{bp\PYZus{}calc}\PY{p}{(}\PY{n}{lamda}\PY{p}{,} \PY{n}{beta}\PY{p}{,} \PY{n}{N}\PY{p}{)}
+             \PY{n}{bp2} \PY{o}{=} \PY{l+m+mi}{1}
+             
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{bp2} \PY{o}{+}\PY{o}{=} \PY{n}{bp\PYZus{}calc}\PY{p}{(}\PY{n}{lamda}\PY{p}{,} \PY{n}{beta}\PY{p}{,} \PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+                 
+             \PY{k}{return} \PY{n}{bp1} \PY{o}{/} \PY{n}{bp2}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Collect all probability of arbitrary in 3 cells}
+         \PY{n}{space} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{33}\PY{p}{)}\PY{p}{)}
+         \PY{n}{subsets} \PY{o}{=} \PY{n}{generateAllSubsetSumToN}\PY{p}{(}\PY{n}{space}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{)}
+         \PY{n}{subsets} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{subsets} \PY{k}{if} \PY{n}{x} \PY{o}{!=} \PY{p}{[}\PY{p}{]}\PY{p}{]}
+         
+         \PY{n}{nsubset} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{subsets}\PY{p}{)}
+         \PY{n}{prob} \PY{o}{=} \PY{p}{[}\PY{k+kc}{None}\PY{p}{]} \PY{o}{*} \PY{n}{nsubset}
+         \PY{k}{for} \PY{n}{index} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{nsubset}\PY{p}{)}\PY{p}{:}
+             \PY{n}{subset} \PY{o}{=} \PY{n}{subsets}\PY{p}{[}\PY{n}{index}\PY{p}{]}
+             \PY{n}{prob}\PY{p}{[}\PY{n}{index}\PY{p}{]} \PY{o}{=} \PY{n}{lamda1\PYZus{}average} \PY{o}{*} \PY{n}{erlang\PYZus{}B}\PY{p}{(}\PY{n}{lamda1}\PY{p}{,} \PY{n}{beta}\PY{p}{,} \PY{n}{subset}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{n}{lamda2\PYZus{}average} \PY{o}{*} \PY{n}{erlang\PYZus{}B}\PY{p}{(}\PY{n}{lamda2}\PY{p}{,} \PY{n}{beta}\PY{p}{,} \PY{n}{subset}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{n}{lamda3\PYZus{}average} \PY{o}{*} \PY{n}{erlang\PYZus{}B}\PY{p}{(}\PY{n}{lamda3}\PY{p}{,} \PY{n}{beta}\PY{p}{,} \PY{n}{subset}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+             
+         \PY{n}{min\PYZus{}prob} \PY{o}{=} \PY{n+nb}{min}\PY{p}{(}\PY{n}{prob}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Min probability of blocking: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{min\PYZus{}prob}\PY{p}{)}
+         \PY{n}{set\PYZus{}index\PYZus{}for\PYZus{}min\PYZus{}prob} \PY{o}{=} \PY{n}{prob}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n}{min\PYZus{}prob}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of channels to minimize blocking prob of three cells: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{subsets}\PY{p}{[}\PY{n}{set\PYZus{}index\PYZus{}for\PYZus{}min\PYZus{}prob}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Min probability of blocking:  0.5057064834151516
+Number of channels to minimize blocking prob of three cells:  [3, 10, 19]
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

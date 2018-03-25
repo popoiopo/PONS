@@ -1,0 +1,17 @@
+\BOOKMARK [1][-]{section.1}{Dimensioning of cellular networks with video-conferencing services}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Formulate a simple model description for the problem.}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Give a formula for the call blocking probability in terms of the model parameters.}{section.1}% 3
+\BOOKMARK [3][-]{subsubsection.1.2.1}{The "Erlang-B formula"}{subsection.1.2}% 4
+\BOOKMARK [3][-]{subsubsection.1.2.2}{Parameters}{subsection.1.2}% 5
+\BOOKMARK [2][-]{subsection.1.3}{Write your own `Erlang-B calculator'' and calculate the blocking probability for cell sizes 0.5 km2, 1km2 and 2 km2.}{section.1}% 6
+\BOOKMARK [2][-]{subsection.1.4}{The call blocking probability is known to be insensitive with respect to the distribution of the call duration. What exactly does that mean?}{section.1}% 7
+\BOOKMARK [2][-]{subsection.1.5}{Is the call blocking probability also insensitive with respect to the inter-arrival time distribution of the calls? If so, why, if not so, give a counter-example.}{section.1}% 8
+\BOOKMARK [3][-]{subsubsection.1.5.1}{Now suppose the service provider wants to offer a new additional service to its customers: video conferencing. Each conference call requires 3 parallel channels for each connection. Video conferencing calls arrive according to a Poisson process with rate 0.25 calls per hour per km2, and the conference call duration is exponentially distributed with mean 15 minutes. Recall that each cell has 6 channels. Call attempts are blocked when there are not enough lines available. Assume throughout that the cell size is 1 km2.}{subsection.1.5}% 9
+\BOOKMARK [2][-]{subsection.1.6}{Formulate the evolution of the system as a two-dimensional continuous-time Markov chain, describing the numbers of calls at both call types \(i.e., voice calls and video conferencing calls, respectively\).}{section.1}% 10
+\BOOKMARK [2][-]{subsection.1.7}{Formulate and solve the balance equations for the Markov chain and calculate the equilibrium state probability for each state.}{section.1}% 11
+\BOOKMARK [2][-]{subsection.1.8}{Use the product-form theorem discussed during the lecture of March 5 to give an explicit formula for the equilibrium state probabilities of the Markov chain.}{section.1}% 12
+\BOOKMARK [2][-]{subsection.1.9}{Use this result to calculate the blocking probabilities for both call classes.}{section.1}% 13
+\BOOKMARK [2][-]{subsection.1.10}{Formulate the Kaufman-Roberts recursion for the model.}{section.1}% 14
+\BOOKMARK [1][-]{section.2}{Three cell analysis}{}% 15
+\BOOKMARK [2][-]{subsection.2.1}{Determine the distribution of the 32 channels over the three cells that minimizes the call blocking probability of an arbitrary call \(regardless of the cell in which takes place. To this end, extend your Erlang-B calculator to the three-cell case, and sure it calculates the call blocking probabilities per cell and the overall call blocking probability.}{section.2}% 16
+\BOOKMARK [2][-]{subsection.2.2}{Suppose we want to have an overall call blocking probability less than 5\045. Do we need any additional channels? If so, how many additional channels are needed, and what would the optimal allocation of these channels then be?}{section.2}% 17
